@@ -22,7 +22,6 @@ Nestora is a property listing app for browsing homes, plots, and commercial spac
 - **Validation:** Zod
 - **Image storage:** Cloudinary
 - **API docs:** Swagger UI and an OpenAPI JSON document
-- **Tests:** Node.js test runner
 
 ## Project Structure
 
