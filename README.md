@@ -131,14 +131,6 @@ Start the API from `server/`:
 npm run dev
 ```
 
-Optionally create demo listings in another backend terminal:
-
-```sh
-npm run seed
-```
-
-The seed script creates 1,000 properties by default, with placeholder image URLs and demo owner accounts. Its demo password is `DemoPass123!`; use seed accounts only for local development. Set `SEED_PROPERTY_COUNT` to change the number of generated listings.
-
 Start the web app from `web/`:
 
 ```sh
