@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  passwordHash String
+  name         String
+  phone        String?
+  tokenVersion Int        @default(0)
+  properties   Property[]
+  inquiries    Inquiry[]
+  sessions     AuthSession[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+enum PropertyType {
+  APARTMENT
+  HOUSE
+  VILLA
+  PLOT
+  COMMERCIAL
+  PG
+}
+
+enum ListingType {
+  SALE
+  RENT
+}
+
+model Property {
+  id           String          @id @default(cuid())
+  ownerId      String
+  owner        User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  title        String
+  slug         String          @unique
+  description  String
+  propertyType PropertyType
+  listingType  ListingType
+  price        Decimal         @db.Decimal(14, 2)
+  depositAmount Decimal?       @db.Decimal(14, 2)
+  bedrooms     Int?
+  bathrooms    Int?
+  areaSqft     Int
+  ageYears     Int?
+  city         String
+  locality     String
+  state        String
+  address      String
+  images       PropertyImage[]
+  inquiries    Inquiry[]
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  @@index([city])
+  @@index([price])
+  @@index([bedrooms])
+  @@index([createdAt])
+  @@index([listingType, propertyType])
+  @@index([city, price])
+  @@index([city, createdAt])
+  @@index([ownerId, createdAt])
+}
+
+model AuthSession {
+  id        String    @id
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model PropertyImage {
+  id         String   @id @default(cuid())
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  url        String
+  publicId   String
+  isPrimary  Boolean  @default(false)
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+
+  @@index([propertyId])
+}
+
+model Inquiry {
+  id         String   @id @default(cuid())
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name       String
+  phone      String
+  message    String
+  createdAt  DateTime @default(now())
+
+  @@unique([propertyId, userId])
+  @@index([propertyId])
+  @@index([userId])
+}
