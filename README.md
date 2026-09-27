@@ -22,7 +22,6 @@ Nestora is a property listing app for browsing homes, plots, and commercial spac
 - **Validation:** Zod
 - **Image storage:** Cloudinary
 - **API docs:** Swagger UI and an OpenAPI JSON document
-- **Tests:** Node.js test runner
 
 ## Project Structure
 
@@ -131,14 +130,6 @@ Start the API from `server/`:
 npm run dev
 ```
 
-Optionally create demo listings in another backend terminal:
-
-```sh
-npm run seed
-```
-
-The seed script creates 1,000 properties by default, with placeholder image URLs and demo owner accounts. Its demo password is `DemoPass123!`; use seed accounts only for local development. Set `SEED_PROPERTY_COUNT` to change the number of generated listings.
-
 Start the web app from `web/`:
 
 ```sh
@@ -216,10 +207,3 @@ Run these from the relevant app directory.
 | `web` | `npm run lint` | Run ESLint. |
 | `web` | `npm test` | Run the structured-data serialization test. |
 
-## Testing
-
-Both apps use Node's built-in test runner through their `test` scripts. The backend has tests for cursor encoding and decoding; the frontend has a test for safe JSON-LD serialization.
-
-## License
-
-No license file or license declaration is present in the repository.
