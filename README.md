@@ -216,10 +216,3 @@ Run these from the relevant app directory.
 | `web` | `npm run lint` | Run ESLint. |
 | `web` | `npm test` | Run the structured-data serialization test. |
 
-## Testing
-
-Both apps use Node's built-in test runner through their `test` scripts. The backend has tests for cursor encoding and decoding; the frontend has a test for safe JSON-LD serialization.
-
-## License
-
-No license file or license declaration is present in the repository.
