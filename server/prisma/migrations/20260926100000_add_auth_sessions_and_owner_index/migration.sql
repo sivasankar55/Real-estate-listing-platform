@@ -1,4 +1,4 @@
--- Track refresh sessions for rotation/revocation and index owner dashboard queries.
+
 CREATE TABLE "AuthSession" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
